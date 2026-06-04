@@ -5,7 +5,9 @@ pipeline {
 
         stage('Clone Code') {
             steps {
-                git 'git branch: 'dev', credentialsId: 'git_credential', url: 'https://github.com/beauty-singh-code/Sonar_Argo_k8s_project.git''
+                git branch: 'dev',
+                    credentialsId: 'git_credential',
+                    url: 'https://github.com/beauty-singh-code/Sonar_Argo_k8s_project.git'
             }
         }
 
@@ -19,9 +21,9 @@ pipeline {
          steps {
              sh '''
              mvn sonar:sonar \
-             -Dsonar.projectKey= demo_sonar_argo_k8s_project \
-             -Dsonar.host.url= http://sonarqube:9000 \
-             -Dsonar.login= sonar-token-id
+             -Dsonar.projectKey=demo_sonar_argo_k8s_project \
+             -Dsonar.host.url=http://sonarqube:9000 \
+             -Dsonar.login=sonar-token-id
              '''
          }
      }
