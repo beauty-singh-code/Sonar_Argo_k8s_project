@@ -17,16 +17,18 @@ pipeline {
             }
         }
 
-        stage('Sonar Scan') {
-         steps {
-             sh '''
-             mvn sonar:sonar \
-             -Dsonar.projectKey=demo_sonar_argo_k8s_project \
-             -Dsonar.host.url=http://host.docker.internal:9000 \
-             -Dsonar.login=$SONAR_TOKEN
-             '''
-         }
-     }
+     stage('Sonar Scan') {
+    steps {
+        withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+            sh '''
+            mvn sonar:sonar \
+            -Dsonar.projectKey=demo_sonar_argo_k8s_project \
+            -Dsonar.host.url=http://host.docker.internal:9000 \
+            -Dsonar.login=$SONAR_TOKEN
+            '''
+        }
+    }
+}
 	 
     }
 }
