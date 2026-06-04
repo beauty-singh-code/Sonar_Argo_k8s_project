@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER_IMAGE = "beauty7718/first_project:0.0.1"
+    }
+
     stages {
 
         stage('Checkout') {
@@ -36,6 +40,12 @@ pipeline {
 
                     }
             }
+
+            stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t $DOCKER_IMAGE .'
+            }
+        }
     }
 }
 
