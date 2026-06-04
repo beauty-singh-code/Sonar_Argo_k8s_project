@@ -3,7 +3,7 @@ pipeline {
 
     stages {
 
-        stage('Clone Code') {
+        stage('Checkout') {
             steps {
                 git branch: 'dev',
                     credentialsId: 'git_credential',
@@ -29,7 +29,13 @@ pipeline {
         }
     }
 }
-	 
+	    stage('Upload To Nexus') {
+             steps {
+
+                sh 'mvn deploy'
+
+                    }
+            }
     }
 }
 
