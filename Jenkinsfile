@@ -5,7 +5,7 @@ pipeline {
 
         stage('Clone Code') {
             steps {
-                git 'git branch: 'dev', credentialsId: 'git_credentials', url: 'https://github.com/beauty-singh-code/k8s-practice-project.git''
+                git 'git branch: 'dev', credentialsId: 'git_credential', url: 'https://github.com/beauty-singh-code/Sonar_Argo_k8s_project.git''
             }
         }
 
