@@ -28,7 +28,8 @@ pipeline {
             mvn sonar:sonar \
             -Dsonar.projectKey=demo_sonar_argo_k8s_project \
             -Dsonar.host.url=http://host.docker.internal:9000 \
-            -Dsonar.login=$SONAR_TOKEN
+            -Dsonar.login=$SONAR_TOKEN \
+            -Dsonar.ws.timeout=300
             '''
         }
     }
