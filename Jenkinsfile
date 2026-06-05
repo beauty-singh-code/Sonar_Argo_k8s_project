@@ -16,24 +16,24 @@ pipeline {
         }
 
         stage('Build Application') {
-            steps {
+            steps { 
                 sh 'mvn clean package'
             }
         }
 
-     stage('Sonar Scan') {
-    steps {
-        withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
-            sh '''
-            mvn sonar:sonar \
-            -Dsonar.projectKey=demo_sonar_argo_k8s_project \
-            -Dsonar.host.url=http://host.docker.internal:9000 \
-            -Dsonar.login=$SONAR_TOKEN \
-            -Dsonar.ws.timeout=300
-            '''
-        }
-    }
-}
+//      stage('Sonar Scan') {
+//     steps {
+//         withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+//             sh '''
+//             mvn sonar:sonar \
+//             -Dsonar.projectKey=demo_sonar_argo_k8s_project \
+//             -Dsonar.host.url=http://host.docker.internal:9000 \
+//             -Dsonar.login=$SONAR_TOKEN \
+//             -Dsonar.ws.timeout=300
+//             '''
+//         }
+//     }
+// }
 	    stage('Upload To Nexus') {
              steps {
 
