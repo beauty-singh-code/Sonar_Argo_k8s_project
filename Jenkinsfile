@@ -54,10 +54,10 @@ pipeline {
 
              sh '''
                 docker tag demo_sonar_argo_k8s_project:0.0.1 \
-                host.docker.internal:8083/demo_sonar_argo_k8s_project:0.0.1
+                host.docker.internal:8081/demo_sonar_argo_k8s_project:0.0.1
 
                  docker push \
-                 host.docker.internal:8083/demo_sonar_argo_k8s_project:0.0.1
+                 host.docker.internal:8081/demo_sonar_argo_k8s_project:0.0.1
                  '''
                  }
             }
