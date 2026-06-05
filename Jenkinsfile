@@ -48,19 +48,44 @@ pipeline {
             }
         }
 
-            stage('Push Docker Image to Nexus') {
+            // stage('Push Docker Image to Nexus') {
 
+            // steps {
+
+            //  sh '''
+            //     docker tag demo_sonar_argo_k8s_project:0.0.1 \
+            //     host.docker.internal:8081/demo_sonar_argo_k8s_project:0.0.1
+
+            //      docker push \
+            //      host.docker.internal:8081/demo_sonar_argo_k8s_project:0.0.1
+            //      '''
+            //      }
+            // }
+
+            stage('Push Docker Image To Nexus') {
             steps {
+        withCredentials([
+            usernamePassword(
+                credentialsId: 'nexus-cred',
+                usernameVariable: 'NEXUS_USER',
+                passwordVariable: 'NEXUS_PASS'
+            )
+        ]) {
+            sh '''
+            echo "$NEXUS_PASS" | docker login \
+            host.docker.internal:8083 \
+            -u "$NEXUS_USER" \
+            --password-stdin
 
-             sh '''
-                docker tag demo_sonar_argo_k8s_project:0.0.1 \
-                host.docker.internal:8081/demo_sonar_argo_k8s_project:0.0.1
+            docker tag demo_sonar_argo_k8s_project:0.0.1 \
+            host.docker.internal:8083/demo_sonar_argo_k8s_project:0.0.1
 
-                 docker push \
-                 host.docker.internal:8081/demo_sonar_argo_k8s_project:0.0.1
-                 '''
-                 }
-            }
+            docker push \
+            host.docker.internal:8083/demo_sonar_argo_k8s_project:0.0.1
+            '''
+        }
+    }
+}
     }
 }
 
