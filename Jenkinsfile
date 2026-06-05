@@ -57,7 +57,7 @@ pipeline {
                   nexus:8083/demo_sonar_argo_k8s_project:0.0.1
 
                  docker push \
-                 nexus:8081/demo_sonar_argo_k8s_project:0.0.1
+                 nexus:8083/demo_sonar_argo_k8s_project:0.0.1
                  '''
                  }
             }
