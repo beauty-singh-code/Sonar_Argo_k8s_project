@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = "beauty7718/demo_sonar_argo_k8s_project-0.0.1"
+        KUBECONFIG = '/root/.kube/config-jenkins'
     }
 
     stages {
