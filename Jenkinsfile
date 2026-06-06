@@ -67,7 +67,7 @@ pipeline {
             steps {
         withCredentials([
             usernamePassword(
-                credentialsId: 'nexus-cred',
+                credentialsId: 'nexus',
                 usernameVariable: 'NEXUS_USER',
                 passwordVariable: 'NEXUS_PASS'
             )
@@ -92,7 +92,7 @@ stage('Deploy to Kubernetes via Helm') {
     steps {
         withCredentials([
             usernamePassword(
-                credentialsId: 'nexus-cred',
+                credentialsId: 'nexus',
                 usernameVariable: 'NEXUS_USER',
                 passwordVariable: 'NEXUS_PASS'
             )
