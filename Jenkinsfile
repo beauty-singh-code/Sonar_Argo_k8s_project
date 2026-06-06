@@ -35,13 +35,13 @@ pipeline {
 //         }
 //     }
 // }
-	    stage('Upload To Nexus') {
-             steps {
+	    // stage('Upload To Nexus') {
+        //      steps {
 
-                sh 'mvn deploy'
+        //         sh 'mvn deploy'
 
-                    }
-            }
+        //             }
+        //     }
 
             stage('Build Docker Image') {
             steps {
