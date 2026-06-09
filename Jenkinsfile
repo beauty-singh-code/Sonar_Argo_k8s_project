@@ -100,7 +100,13 @@ stage('Deploy to Kubernetes via Helm') {
         ]) {
 
             sh '''
+
+            echo "KUBECONFIG FILE:"
+            cat $KUBECONFIG_FILE | grep client-key-data || true
+            
             export KUBECONFIG=$KUBECONFIG_FILE
+            echo "==== USERS ===="
+            kubectl config view --raw
 
             kubectl get nodes
 
