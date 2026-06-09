@@ -91,21 +91,25 @@ pipeline {
 stage('Deploy to Kubernetes via Helm') {
     steps {
         withCredentials([
+            file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG_FILE'),
             usernamePassword(
                 credentialsId: 'nexus',
                 usernameVariable: 'NEXUS_USER',
                 passwordVariable: 'NEXUS_PASS'
             )
         ]) {
+
             sh '''
-            # Create/Update Docker registry secret
+            export KUBECONFIG=$KUBECONFIG_FILE
+
+            kubectl get nodes
+
             kubectl create secret docker-registry nexus-secret \
               --docker-server=host.docker.internal:8083 \
               --docker-username=$NEXUS_USER \
               --docker-password=$NEXUS_PASS \
               --dry-run=client -o yaml | kubectl apply -f -
 
-            # Deploy Helm chart
             helm upgrade --install beauty-demo-chart ./beauty-demo-chart \
               --set image.repository=host.docker.internal:8083/demo_sonar_argo_k8s_project \
               --set image.tag=0.0.1
