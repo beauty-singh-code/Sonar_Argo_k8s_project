@@ -101,20 +101,20 @@ stage('Deploy to Kubernetes via Helm') {
 
             sh '''
 
-            echo "KUBECONFIG FILE:"
-            cat $KUBECONFIG_FILE | grep client-key-data || true
             
             export KUBECONFIG=$KUBECONFIG_FILE
 
+           echo "===== FILE INFO ====="
+            ls -l $KUBECONFIG_FILE
+
+            echo "===== FIRST 20 LINES ====="
+            head -20 $KUBECONFIG_FILE || true
+
             echo "===== SERVER ====="
-            grep "server:" $KUBECONFIG
+            grep "server:" $KUBECONFIG_FILE || true
 
-               echo "===== TEST ====="
-                kubectl config view --minify
-            // echo "==== USERS ===="
-            // kubectl config view --raw
-
-            kubectl get nodes
+            echo "===== KUBECTL VIEW ====="
+            kubectl config view --minify || true
 
             kubectl create secret docker-registry nexus-secret \
               --docker-server=host.docker.internal:8083 \
